@@ -7,6 +7,7 @@ const { spawn } = require('child_process');
 const config = require('./config/key.js');
 
 
+
 const app = express();
 const upload = multer({ dest: '/uploads' });
 
@@ -40,7 +41,8 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
     if (code === 0) {
       // Process completed successfully
       const obj_json = JSON.parse(outputData);
-      mongo_db(obj_json);
+      // mongo_db(obj_json);
+      // sql_db(obj_json);
       console.log('Output:', obj_json);
       res.json(obj_json);
       // Do further processing with the output data
@@ -81,5 +83,27 @@ function mongo_db(data) {
   db.collection('document_information').insertOne(data, function (err, result) {
     console.log('MONGO DB저장완료');
   });
+}
 
+
+const mysql = require('mysql');
+
+const connection = mysql.createConnection({
+  host: '127.0.0.1',
+  port: '3306',
+  user: 'root',
+  password: '0000',
+  database: 'document_information'
+});
+
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('MySQL conected....');
+});
+
+function sql_db(data) {
+  connection.query('INSERT INTO users SET ?', data, (err, results) => {
+    if (err) throw err;
+    console.log('MySQL 저장완료');
+  });
 }

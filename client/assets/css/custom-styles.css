@@ -662,7 +662,9 @@ font-size: 19px;
 
 
 /* 내가 추가한것. */
-
+h1{
+margin-bottom: 15px;
+}
 .camera_search{
     /* margin-top: 15%; */
     background-color: transparent;
@@ -698,6 +700,7 @@ font-size: 19px;
 
     height: 200px;
 }
+
 /* -------------- */
 .card.horizontal.cardIcon .card-image i {
     margin-top: 30%;

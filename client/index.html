@@ -19,6 +19,10 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 	<link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css">
 
+	<!-- 네이버 맵 키 가리기 -->
+	<script type="text/javascript"
+		src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=&submodules=geocoder"></script>
+
 
 
 </head>
@@ -208,10 +212,13 @@
 					</div>
 
 
+				</div>
+				<h1>Google Map</h1>
+				<div class="row" id="map" data-address="" style="height: 600px;">
+				</div>
+				<h1>Naver Map</h1>
+				<div class="row" id="N_map" data-address="" style="height: 600px;">
 
-					<div class="row" id="map" data-address="전라북도 전주시 덕진구 들사평1길" style="height: 600px;">
-
-					</div>
 					<!-- /. ROW  -->
 
 

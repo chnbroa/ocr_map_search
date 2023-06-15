@@ -59,6 +59,51 @@ function information(data) {
   phone.innerHTML = data['연락처'];
 }
 
+var N_map;
+var N_marker;
+
+function N_initMap() {
+  N_map = new naver.maps.Map('N_map', {
+    center: new naver.maps.LatLng(37.5665, 126.9780), // Default center position (Seoul, South Korea)
+    zoom: 15
+  });
+}
+
+function N_searchAddress(ser_address) {
+
+  const address = ser_address;
+
+  naver.maps.Service.geocode({
+    address: address
+  }, function (status, response) {
+    if (status === naver.maps.Service.Status.ERROR) {
+      alert('Failed to search the address.');
+      return;
+    }
+
+    var result = response.result;
+    var items = result.items;
+
+    if (items.length === 0) {
+      alert('No result found.');
+      return;
+    }
+
+    var firstItem = items[0];
+    var point = new naver.maps.Point(firstItem.point.x, firstItem.point.y);
+
+    if (!N_marker) {
+      marker = new naver.maps.Marker({
+        position: point,
+        map: N_map
+      });
+    } else {
+      N_marker.setPosition(point);
+    }
+
+    N_map.setCenter(point);
+  });
+}
 
 
 window.onload = function () {
@@ -102,7 +147,8 @@ window.onload = function () {
         loadMapScript();
 
         information(data);
-
+        N_initMap();
+        N_searchAddress(data['주소']);
       })
       .catch(error => {
         console.error('Error sending image:', error);
